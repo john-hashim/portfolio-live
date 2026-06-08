@@ -9,45 +9,53 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
       <div>
         <div class="flex flex-col gap-8 items-start">
           <div>
-            <h2 class="text-xl font-bold text-gray-900">
-              Projects
-            </h2>
+            <h2 class="text-xl font-bold text-gray-900">Projects</h2>
             <div
               class="w-[75px] h-[5px] mt-2 rounded-full"
               style={`background-color: ${siteConfig.accentColor}`}
             />
           </div>
 
-          <div class="w-full">
-            <div class="space-y-8">
-              {siteConfig.projects.map((project, index) => {
-                const Component = project.link ? "a" : "div";
-                const linkProps = project.link
-                  ? {
-                      href: project.link,
-                      target: "_blank",
-                      rel: "noopener noreferrer",
-                    }
-                  : {};
+          <div class="w-full space-y-8">
+            {siteConfig.projects.map((project, index) => {
+              const screenshots = project.screenshots ?? [];
+              const whatIDid = project.whatIDid ?? [];
+              return (
+                <div class="bg-white rounded-xl sm:rounded-2xl border border-gray-200 p-4 sm:p-6 md:p-8">
+                  {/* Header */}
+                  <div class="flex items-start justify-between gap-4">
+                    <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
+                      <h3 class="text-base font-bold text-gray-900">{project.name}</h3>
+                      {project.label && (
+                        <span class="px-2.5 py-0.5 bg-gray-200 text-gray-600 rounded-md text-xs font-medium">
+                          {project.label}
+                        </span>
+                      )}
+                    </div>
 
-                return (
-                  <div class="group relative">
-                    <Component
-                      {...linkProps}
-                      class={`block relative p-4 sm:p-6 md:p-8 bg-gray-50 rounded-xl sm:rounded-2xl border border-gray-200 transition-all duration-300 ${
-                        project.link
-                          ? "hover:bg-white hover:shadow-xl hover:border-gray-300 hover:-translate-y-1"
-                          : ""
-                      }`}
-                    >
-                      {project.link && (
-                        <div class="absolute top-4 right-4 sm:top-6 sm:right-6 md:top-8 md:right-8 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-gray-900 rounded-full text-white transition-all duration-300 group-hover:bg-gray-700">
-                          <svg
-                            class="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label="GitHub repository"
+                          class="w-9 h-9 flex items-center justify-center bg-gray-50 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-900 hover:text-white transition-colors duration-300"
+                        >
+                          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.523 2 12 2z" />
+                          </svg>
+                        </a>
+                      )}
+                      {project.liveUrl && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="flex items-center gap-1.5 px-3 h-9 bg-gray-50 border border-gray-200 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-900 hover:text-white transition-colors duration-300"
+                        >
+                          Live
+                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path
                               stroke-linecap="round"
                               stroke-linejoin="round"
@@ -55,50 +63,346 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
                               d="M7 17L17 7M17 7H7M17 7V17"
                             />
                           </svg>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Body */}
+                  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mt-5">
+                    {/* Left column */}
+                    <div class="flex flex-col">
+                      <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                        {project.description}
+                      </p>
+
+                      {project.skills && project.skills.length > 0 && (
+                        <div class="flex flex-wrap gap-1.5 sm:gap-2 mt-4">
+                          {project.skills.map((skill) => (
+                            <span class="px-2.5 py-1 bg-gray-50 border border-gray-200 text-gray-700 rounded-md text-xs font-medium">
+                              {skill}
+                            </span>
+                          ))}
                         </div>
                       )}
 
-                      <div class="space-y-4">
-                        <div>
-                          <span
-                            class="text-sm font-mono"
-                            style={{ color: siteConfig.accentColor }}
-                          >
-                            0{index + 1}
-                          </span>
-                          <h3 class="text-base font-bold text-gray-900 mt-1">
-                            {project.name}
-                          </h3>
-                        </div>
-
-                        <p
-                          class={`text-xs sm:text-sm text-gray-600 leading-relaxed ${project.link ? "pr-12 sm:pr-14 md:pr-16" : ""}`}
-                        >
-                          {project.description}
-                        </p>
-
-                        {project.skills && project.skills.length > 0 && (
-                          <div class="flex flex-wrap gap-1.5 sm:gap-2 pt-2">
-                            {project.skills.map((skill) => (
-                              <span
-                                class={`px-2.5 sm:px-3 py-1 sm:py-1.5 bg-gray-900 text-white rounded-md sm:rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 ${
-                                  project.link ? "group-hover:bg-gray-800" : ""
-                                }`}
+                      {whatIDid.length > 0 && (
+                        <div class="mt-auto pt-4">
+                          <div class="border-t border-gray-200 pt-4">
+                            <button
+                              type="button"
+                              data-expand-toggle={index}
+                              aria-expanded="false"
+                              class="w-full flex items-center justify-between text-left cursor-pointer"
+                            >
+                              <span class="text-sm font-bold text-gray-900">What I did</span>
+                              <svg
+                                data-expand-icon={index}
+                                class="w-4 h-4 text-gray-500 transition-transform duration-300"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
                               >
-                                {skill}
-                              </span>
-                            ))}
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M19 9l-7 7-7-7"
+                                />
+                              </svg>
+                            </button>
+                            <div
+                              data-expand-content={index}
+                              class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-700 ease-out"
+                            >
+                              <ul class="overflow-hidden mt-0 space-y-2">
+                                {whatIDid.map((item) => (
+                                  <li class="flex items-start first:mt-3">
+                                    <span class="inline-block w-1.5 h-1.5 rounded-full bg-gray-400 mt-2 mr-3 flex-shrink-0" />
+                                    <span class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                                      {item}
+                                    </span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
                           </div>
-                        )}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Right column — screenshot carousel */}
+                    {screenshots.length > 0 && (
+                      <div class="relative" data-carousel={index}>
+                        <div class="relative aspect-video bg-gray-100 rounded-xl border border-gray-200 overflow-hidden">
+                          {screenshots.map((src, i) => (
+                            <img
+                              src={src}
+                              alt={`${project.name} screenshot ${i + 1}`}
+                              data-carousel-slide
+                              data-lightbox-src={src}
+                              loading="lazy"
+                              class={`absolute inset-0 w-full h-full object-cover cursor-zoom-in transition-opacity duration-300 ${
+                                i === 0 ? "opacity-100" : "opacity-0 pointer-events-none"
+                              }`}
+                            />
+                          ))}
+
+                          {screenshots.length > 1 && (
+                            <>
+                              <button
+                                type="button"
+                                data-carousel-prev
+                                aria-label="Previous screenshot"
+                                class="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-white/90 hover:bg-white border border-gray-200 rounded-full text-gray-700 shadow-sm transition-colors duration-300 cursor-pointer"
+                              >
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                                </svg>
+                              </button>
+                              <button
+                                type="button"
+                                data-carousel-next
+                                aria-label="Next screenshot"
+                                class="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-white/90 hover:bg-white border border-gray-200 rounded-full text-gray-700 shadow-sm transition-colors duration-300 cursor-pointer"
+                              >
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                              </button>
+                              <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                                {screenshots.map((_, i) => (
+                                  <button
+                                    type="button"
+                                    data-carousel-dot
+                                    aria-label={`Go to screenshot ${i + 1}`}
+                                    class={`w-1.5 h-1.5 rounded-full transition-colors duration-300 cursor-pointer ${
+                                      i === 0 ? "bg-gray-800" : "bg-gray-300"
+                                    }`}
+                                  />
+                                ))}
+                              </div>
+                            </>
+                          )}
+                        </div>
                       </div>
-                    </Component>
+                    )}
                   </div>
-                );
-              })}
-            </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
     </section>
   )
 }
+
+{/* Lightbox modal */}
+<div
+  id="project-lightbox"
+  class="hidden fixed inset-0 z-50 items-center justify-center bg-black/80 p-4 sm:p-8"
+  aria-hidden="true"
+>
+  <button
+    type="button"
+    data-lightbox-close
+    aria-label="Close"
+    class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors duration-300 cursor-pointer"
+  >
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+  <button
+    type="button"
+    data-lightbox-prev
+    aria-label="Previous screenshot"
+    class="hidden absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 items-center justify-center bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors duration-300 cursor-pointer"
+  >
+    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+  <button
+    type="button"
+    data-lightbox-next
+    aria-label="Next screenshot"
+    class="hidden absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 items-center justify-center bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors duration-300 cursor-pointer"
+  >
+    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
+  <img
+    id="project-lightbox-img"
+    src=""
+    alt="Project screenshot full view"
+    class="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+  />
+</div>
+
+<script>
+  // "What I did" expand / collapse
+  document.querySelectorAll("[data-expand-toggle]").forEach((btn) => {
+    const id = btn.getAttribute("data-expand-toggle");
+    const content = document.querySelector(`[data-expand-content="${id}"]`);
+    const icon = document.querySelector(`[data-expand-icon="${id}"]`);
+    btn.addEventListener("click", () => {
+      const expanded = content?.classList.contains("grid-rows-[1fr]");
+      content?.classList.toggle("grid-rows-[0fr]", expanded);
+      content?.classList.toggle("grid-rows-[1fr]", !expanded);
+      icon?.classList.toggle("rotate-180", !expanded);
+      btn.setAttribute("aria-expanded", String(!expanded));
+    });
+  });
+
+  // Screenshot carousels
+  document.querySelectorAll("[data-carousel]").forEach((carousel) => {
+    const slides = carousel.querySelectorAll("[data-carousel-slide]");
+    const dots = carousel.querySelectorAll("[data-carousel-dot]");
+    let current = 0;
+
+    const show = (n: number) => {
+      current = (n + slides.length) % slides.length;
+      slides.forEach((s, i) => {
+        s.classList.toggle("opacity-100", i === current);
+        s.classList.toggle("opacity-0", i !== current);
+        s.classList.toggle("pointer-events-none", i !== current);
+      });
+      dots.forEach((d, i) => {
+        d.classList.toggle("bg-gray-800", i === current);
+        d.classList.toggle("bg-gray-300", i !== current);
+      });
+    };
+
+    // Autoplay — rotates every 4s, pauses on hover, stops on manual interaction
+    let autoplay: ReturnType<typeof setInterval> | null = null;
+    const startAutoplay = () => {
+      if (autoplay || slides.length <= 1) return;
+      autoplay = setInterval(() => show(current + 1), 4000);
+    };
+    const stopAutoplay = () => {
+      if (autoplay) {
+        clearInterval(autoplay);
+        autoplay = null;
+      }
+    };
+
+    const manual = (n: number) => {
+      stopAutoplay();
+      show(n);
+    };
+
+    carousel
+      .querySelector("[data-carousel-prev]")
+      ?.addEventListener("click", () => manual(current - 1));
+    carousel
+      .querySelector("[data-carousel-next]")
+      ?.addEventListener("click", () => manual(current + 1));
+    dots.forEach((d, i) => d.addEventListener("click", () => manual(i)));
+
+    carousel.addEventListener("mouseenter", stopAutoplay);
+    carousel.addEventListener("mouseleave", () => {
+      // don't resume once the user has taken manual control
+      if (!userInteracted) startAutoplay();
+    });
+
+    let userInteracted = false;
+    [
+      carousel.querySelector("[data-carousel-prev]"),
+      carousel.querySelector("[data-carousel-next]"),
+      ...Array.from(dots),
+    ].forEach((el) =>
+      el?.addEventListener("click", () => {
+        userInteracted = true;
+      })
+    );
+
+    startAutoplay();
+  });
+
+  // Lightbox (carousel)
+  const lightbox = document.getElementById("project-lightbox");
+  const lightboxImg = document.getElementById(
+    "project-lightbox-img"
+  ) as HTMLImageElement | null;
+  const lightboxPrev = lightbox?.querySelector("[data-lightbox-prev]");
+  const lightboxNext = lightbox?.querySelector("[data-lightbox-next]");
+
+  let lbImages: string[] = [];
+  let lbIndex = 0;
+
+  const renderLightbox = () => {
+    if (!lightboxImg || lbImages.length === 0) return;
+    lbIndex = (lbIndex + lbImages.length) % lbImages.length;
+    lightboxImg.src = lbImages[lbIndex];
+    const multiple = lbImages.length > 1;
+    lightboxPrev?.classList.toggle("hidden", !multiple);
+    lightboxPrev?.classList.toggle("flex", multiple);
+    lightboxNext?.classList.toggle("hidden", !multiple);
+    lightboxNext?.classList.toggle("flex", multiple);
+  };
+
+  const openLightbox = (images: string[], index: number) => {
+    if (!lightbox || !lightboxImg) return;
+    lbImages = images;
+    lbIndex = index;
+    renderLightbox();
+    lightbox.classList.remove("hidden");
+    lightbox.classList.add("flex");
+    lightbox.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeLightbox = () => {
+    if (!lightbox || !lightboxImg) return;
+    lightbox.classList.add("hidden");
+    lightbox.classList.remove("flex");
+    lightbox.setAttribute("aria-hidden", "true");
+    lightboxImg.src = "";
+    lbImages = [];
+    document.body.style.overflow = "";
+  };
+
+  const isOpen = () => lightbox && !lightbox.classList.contains("hidden");
+
+  document.querySelectorAll("[data-carousel]").forEach((carousel) => {
+    const imgs = Array.from(
+      carousel.querySelectorAll("[data-lightbox-src]")
+    ) as HTMLElement[];
+    const srcs = imgs
+      .map((img) => img.getAttribute("data-lightbox-src") || "")
+      .filter(Boolean);
+    imgs.forEach((img, i) => {
+      img.addEventListener("click", () => openLightbox(srcs, i));
+    });
+  });
+
+  lightboxPrev?.addEventListener("click", () => {
+    lbIndex -= 1;
+    renderLightbox();
+  });
+  lightboxNext?.addEventListener("click", () => {
+    lbIndex += 1;
+    renderLightbox();
+  });
+
+  lightbox?.querySelector("[data-lightbox-close]")?.addEventListener("click", closeLightbox);
+  lightbox?.addEventListener("click", (e) => {
+    // close when clicking the backdrop (not the image or controls)
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (!isOpen()) return;
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowLeft") {
+      lbIndex -= 1;
+      renderLightbox();
+    }
+    if (e.key === "ArrowRight") {
+      lbIndex += 1;
+      renderLightbox();
+    }
+  });
+</script>

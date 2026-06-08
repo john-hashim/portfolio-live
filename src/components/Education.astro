@@ -21,20 +21,17 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
           <div class="w-full">
             <div class="space-y-8">
               {siteConfig.education.map((edu) => (
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 sm:p-5 md:p-6 hover:shadow-md transition-shadow duration-300">
+                <div class="bg-white rounded-xl sm:rounded-2xl border border-gray-200 p-4 sm:p-6 md:p-8">
                   <div class="mb-4">
                     <div class="flex items-baseline flex-wrap gap-x-3">
-                      <h3 class="text-base font-semibold text-gray-900">
+                      <h3 class="text-base font-bold text-gray-900">
                         {edu.degree}
                       </h3>
                       <span class="text-xs text-gray-500">
                         {edu.dateRange}
                       </span>
                     </div>
-                    <p
-                      class="text-sm sm:text-base"
-                      style={`color: ${siteConfig.accentColor}`}
-                    >
+                    <p class="text-sm sm:text-base text-gray-700">
                       {edu.school}
                     </p>
                     {edu.university && (

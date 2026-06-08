@@ -37,30 +37,76 @@ export const siteConfig = {
   ],
   projects: [
     {
-      name: "AI Chatbot Builder",
+      name: "Chatvio",
+      label: "Personal",
+      liveUrl: "https://chatvio.io",
+      githubUrl: "https://github.com/john-hashim/ai-chatbot",
       description:
-        "A full-stack SaaS platform for creating, training, and deploying custom AI chatbots. Features RAG-based chat with pgvector similarity search, an LLM-driven action registry that detects intent and triggers structured flows (like appointment booking) mid-stream, document/website training, embeddable widgets with domain whitelisting, per-chatbot model selection via OpenRouter, and analytics.",
-      link: "https://github.com/john-hashim/ai-chatbot",
-      skills: ["React 19", "TypeScript", "Node.js", "PostgreSQL", "pgvector", "RAG"],
+        "A full-stack SaaS platform for building, training, and embedding custom AI chatbots — RAG-based answers, document training, in-chat booking, and analytics.",
+      skills: ["React 19", "TypeScript", "Express", "PostgreSQL", "pgvector", "Prisma"],
+      screenshots: [
+        "/projects/chatvio1.png",
+        "/projects/chatvio2.png",
+        "/projects/chatvio3.png",
+      ],
+      whatIDid: [
+        "Designed the product, the UI, and the full system architecture — data model, RAG pipeline, and how every piece fits together.",
+        "Built a retrieval-augmented (RAG) chat flow using pgvector similarity search over document embeddings for context-aware answers.",
+        "Designed an LLM-driven action system where the model detects intent (e.g. booking) and triggers structured flows mid-stream, with action tokens buffered server-side so they never leak to the client.",
+        "Built document training (PDF / DOCX / text / Q&A + website crawling), an appointment-booking flow with availability and email confirmations, and an embeddable widget with domain whitelisting.",
+        "Added an analytics dashboard (message/session metrics, geolocation, feedback) and chat history export (JSON / CSV / PDF).",
+        "Chose and integrated the stack: React 19, TypeScript, Mantine, Tailwind (frontend); Express, Prisma, PostgreSQL + pgvector (backend); OpenRouter for per-chatbot model selection, HuggingFace embeddings, Cloudflare R2 storage, Google OAuth.",
+        "Handled deployment end to end, gaining a working understanding of Vercel (frontend), Railway (backend), and Neon (production PostgreSQL database).",
+      ],
     },
     {
-      name: "TeamWave — Enterprise SaaS Suite",
+      name: "TeamWave CRM",
+      label: "TeamWave",
       description:
-        "Led front-end development across multiple modules of an enterprise SaaS suite. Built the CRM with Angular 17, NgRx, PrimeNG and AG Grid on an Nx monorepo; developed complete e-signature functionality with Stripe payment integration; and built the internal dashboard with Angular Material and component-level NgRx. Proprietary, closed-source company work.",
-      skills: ["Angular 17", "NgRx", "RxJS", "PrimeNG", "AG Grid", "Nx Monorepo"],
+        "The CRM product in TeamWave's enterprise SaaS suite, built for performance and interface consistency at scale. It spans Deals, People, and Products with rich, data-heavy tables — in-table filtering, custom fields, and custom filters — plus dedicated detail pages for each entity with tag management, all backed by NgRx state.",
+      skills: ["Angular 17", "NgRx", "PrimeNG", "AG Grid", "Nx Monorepo", "RxJS"],
+      screenshots: [
+        "/projects/tw_crm1.png",
+        "/projects/tw_crm2.png",
+        "/projects/tw_crm3.png",
+      ],
+      whatIDid: [
+        "Built the core CRM data tables for Deals, People, and Products with in-table filtering, custom fields, and user-defined custom filters over large datasets.",
+        "Developed per-entity detail pages with tag management for Deals, People, and Products.",
+        "Modeled and managed all of this state with NgRx for predictable, scalable data flow across the app.",
+        "Enhanced the CRM front end with Angular 17, NgRx, PrimeNG, and AG Grid, driving performance optimization and interface consistency across data-heavy views.",
+        "Worked within an Nx monorepo, scaling the app through modular implementation.",
+      ],
     },
     {
-      name: "EchoWrite — Personalized AI Chat App",
+      name: "TeamWave WorkAI",
+      label: "TeamWave",
       description:
-        "A full-stack AI chat app that adapts to the user's tone and remembers past conversations for natural, context-rich exchanges. Tone-adaptive responses via Google Generative AI, Redis-based session persistence and chat memory, Google OAuth sign-in, and a PostgreSQL/Prisma backend. Deployed on an AWS EC2 instance.",
-      link: "https://github.com/john-hashim/echowrite",
-      skills: ["React", "TypeScript", "Zustand", "Node.js", "Redis", "PostgreSQL"],
+        "An in-house, ChatGPT-style AI assistant — a conversational Q&A interface integrated with OpenAI, with support for custom, reusable prompts.",
+      skills: ["React", "Tailwind CSS", "Mantine", "OpenAI API"],
+      screenshots: ["/projects/tw_workai.png"],
+      whatIDid: [
+        "Built an internal ChatGPT-style Q&A interface integrated with the OpenAI API, giving the team a private AI assistant.",
+        "Implemented a custom prompt system so users could create and reuse their own prompt templates.",
+        "Designed the full chat UI with React, Tailwind CSS, and Mantine — responsive, clean, and consistent with the product's design language.",
+      ],
     },
     {
-      name: "Unbanking.io — Landing Page",
+      name: "TeamWave — PM, Dashboard & Support Analytics",
+      label: "TeamWave",
       description:
-        "Designed and developed the Unbanking.io marketing landing page end to end with Next.js and Tailwind CSS, owning the work from design through to a polished, responsive implementation.",
-      skills: ["Next.js", "Tailwind CSS", "TypeScript"],
+        "A set of internal TeamWave modules I contributed to across the suite — the Project Management module, the internal Dashboard, and a support-ticket analytics page.",
+      skills: ["React", "Redux", "Angular", "NgRx", "Angular Material"],
+      screenshots: [
+        "/projects/tw_users_list.png",
+        "/projects/tw_dashboard.png",
+        "/projects/tw_esign_dashboard.png",
+      ],
+      whatIDid: [
+        "Built features for the Project Management module (React, Redux) — task handling, team collaboration, and project tracking, with reusable, scalable components.",
+        "Developed the internal Dashboard (Angular, NgRx, Angular Material) with accessible, responsive components and component-level state management.",
+        "Built a support-ticket analytics page, surfacing ticket metrics and trends for the support team.",
+      ],
     },
   ],
   experience: [
