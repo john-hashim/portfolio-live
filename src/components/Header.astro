@@ -4,14 +4,23 @@ import { siteConfig } from "../config";
 const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
 const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
 const hasEducation = siteConfig.education && siteConfig.education.length > 0;
+const hasReferences = siteConfig.references && siteConfig.references.length > 0;
 ---
 
 <header
   id="header"
   class="fixed top-0 left-0 right-0 z-50 hidden md:block transition-all duration-300"
 >
-  <nav class="max-w-7xl mx-auto px-16 sm:px-24 md:px-40 lg:px-56 py-4">
+  <nav class="max-w-7xl mx-auto px-5 sm:px-24 md:px-40 lg:px-56 py-4">
     <ul class="flex items-center gap-8 justify-center">
+      <li>
+        <a
+          href="#hero"
+          class="text-gray-700 hover:text-black transition-colors font-medium"
+        >
+          Home
+        </a>
+      </li>
       {
         hasProjects && (
           <li>
@@ -48,6 +57,18 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
           </li>
         )
       }
+      {
+        hasReferences && (
+          <li>
+            <a
+              href="#references"
+              class="text-gray-700 hover:text-black transition-colors font-medium"
+            >
+              References
+            </a>
+          </li>
+        )
+      }
     </ul>
   </nav>
 </header>
@@ -66,5 +87,6 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
 <style>
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
   }
 </style>

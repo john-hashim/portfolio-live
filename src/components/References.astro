@@ -1,0 +1,63 @@
+---
+import { siteConfig } from "../config";
+const hasReferences = siteConfig.references && siteConfig.references.length > 0;
+---
+
+{
+  hasReferences && (
+    <section id="references" class="px-5 sm:px-24 md:px-40 lg:px-56 pt-0 pb-8 sm:pb-12 md:pb-16 lg:pb-24">
+      <div>
+        <div class="flex flex-col gap-8 items-start">
+          <div>
+            <h2 class="text-xl font-bold text-gray-900">References</h2>
+            <div
+              class="w-[75px] h-[5px] mt-2 rounded-full"
+              style={`background-color: ${siteConfig.accentColor}`}
+            />
+          </div>
+
+          <div class="w-full">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+              {siteConfig.references.map((ref) => (
+                <div class="bg-white rounded-xl sm:rounded-2xl border border-gray-200 p-4 sm:p-6 md:p-8">
+                  <h3 class="text-base font-bold text-gray-900">{ref.name}</h3>
+                  <p class="text-sm sm:text-base text-gray-700">
+                    {ref.title}
+                    {ref.company && `, ${ref.company}`}
+                  </p>
+
+                  <div class="mt-4 space-y-2">
+                    {ref.email && (
+                      <a
+                        href={`mailto:${ref.email}`}
+                        class="flex items-center text-xs sm:text-sm text-gray-600 hover:text-black transition-colors"
+                      >
+                        <span
+                          class="inline-block w-1.5 h-1.5 rounded-full mr-3 flex-shrink-0"
+                          style={`background-color: ${siteConfig.accentColor}`}
+                        />
+                        {ref.email}
+                      </a>
+                    )}
+                    {ref.phone && (
+                      <a
+                        href={`tel:${ref.phone.replace(/\s+/g, "")}`}
+                        class="flex items-center text-xs sm:text-sm text-gray-600 hover:text-black transition-colors"
+                      >
+                        <span
+                          class="inline-block w-1.5 h-1.5 rounded-full mr-3 flex-shrink-0"
+                          style={`background-color: ${siteConfig.accentColor}`}
+                        />
+                        {ref.phone}
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

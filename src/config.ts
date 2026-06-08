@@ -8,6 +8,7 @@ export const siteConfig = {
     linkedin: "https://www.linkedin.com/in/john-hashim/",
     github: "https://github.com/john-hashim",
   },
+  resumeUrl: "/cv/John_Hashim_CV.pdf",
   aboutMe: [
     "Full-stack engineer, 4+ years building scalable web apps.",
     "Lead Front-End Engineer at TeamWave; led the Angular 17 migration.",
@@ -142,6 +143,22 @@ export const siteConfig = {
       description:
         "Pursued a degree in Computer Science at Amal Jyothi College of Engineering from Aug 2015 to Jul 2019.",
       achievements: [],
+    },
+  ],
+  references: [
+    {
+      name: "Sathishkumar VA",
+      title: "CTO",
+      company: "TeamWave",
+      email: "sathish@teamwave.com",
+      phone: "+91 77605 07779",
+    },
+    {
+      name: "Shuhaib Shariff",
+      title: "CEO",
+      company: "TeamWave",
+      email: "shuhaib@doublespring.com",
+      phone: "",
     },
   ],
 };
