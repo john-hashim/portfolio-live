@@ -5,77 +5,136 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
 const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
 const hasEducation = siteConfig.education && siteConfig.education.length > 0;
 const hasReferences = siteConfig.references && siteConfig.references.length > 0;
+
+const links = [
+  { href: "#hero", label: "Home", show: true },
+  { href: "#projects", label: "Projects", show: hasProjects },
+  { href: "#experience", label: "Experience", show: hasExperience },
+  { href: "#education", label: "Education", show: hasEducation },
+  { href: "#references", label: "References", show: hasReferences },
+].filter((link) => link.show);
 ---
 
 <header
   id="header"
-  class="fixed top-0 left-0 right-0 z-50 hidden md:block transition-all duration-300"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
 >
-  <nav class="max-w-7xl mx-auto px-5 sm:px-24 md:px-40 lg:px-56 py-4">
-    <ul class="flex items-center gap-8 justify-center">
-      <li>
-        <a
-          href="#hero"
-          class="text-gray-700 hover:text-black transition-colors font-medium"
+  <nav class="max-w-7xl mx-auto px-4 sm:px-24 md:px-40 lg:px-56 py-4">
+    {/* Desktop nav */}
+    <ul class="hidden md:flex items-center gap-8 justify-center">
+      {
+        links.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="text-gray-700 hover:text-black transition-colors font-medium"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    {/* Mobile nav toggle */}
+    <div class="flex md:hidden items-center justify-end">
+      <button
+        id="mobile-menu-button"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="p-2 -mr-2 text-gray-700 hover:text-black transition-colors"
+      >
+        <svg
+          id="menu-icon-open"
+          xmlns="http://www.w3.org/2000/svg"
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
         >
-          Home
-        </a>
-      </li>
+          <line x1="4" y1="6" x2="20" y2="6"></line>
+          <line x1="4" y1="12" x2="20" y2="12"></line>
+          <line x1="4" y1="18" x2="20" y2="18"></line>
+        </svg>
+        <svg
+          id="menu-icon-close"
+          class="hidden"
+          xmlns="http://www.w3.org/2000/svg"
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+          <line x1="6" y1="18" x2="18" y2="6"></line>
+        </svg>
+      </button>
+    </div>
+
+    {/* Mobile menu panel */}
+    <ul
+      id="mobile-menu"
+      class="hidden md:hidden mt-3 rounded-lg bg-white/95 backdrop-blur-sm shadow-lg ring-1 ring-gray-200 p-2 space-y-1"
+    >
       {
-        hasProjects && (
+        links.map((link) => (
           <li>
             <a
-              href="#projects"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
+              href={link.href}
+              class="mobile-nav-link block rounded-md px-3 py-2 text-gray-700 hover:text-black hover:bg-gray-100 transition-colors font-medium"
             >
-              Projects
+              {link.label}
             </a>
           </li>
-        )
-      }
-      {
-        hasExperience && (
-          <li>
-            <a
-              href="#experience"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
-            >
-              Experience
-            </a>
-          </li>
-        )
-      }
-      {
-        hasEducation && (
-          <li>
-            <a
-              href="#education"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
-            >
-              Education
-            </a>
-          </li>
-        )
-      }
-      {
-        hasReferences && (
-          <li>
-            <a
-              href="#references"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
-            >
-              References
-            </a>
-          </li>
-        )
+        ))
       }
     </ul>
   </nav>
 </header>
 
 <script>
+  const header = document.getElementById("header");
+  const button = document.getElementById("mobile-menu-button");
+  const menu = document.getElementById("mobile-menu");
+  const iconOpen = document.getElementById("menu-icon-open");
+  const iconClose = document.getElementById("menu-icon-close");
+
+  function closeMenu() {
+    menu?.classList.add("hidden");
+    iconOpen?.classList.remove("hidden");
+    iconClose?.classList.add("hidden");
+    button?.setAttribute("aria-expanded", "false");
+  }
+
+  function toggleMenu() {
+    const isOpen = !menu?.classList.contains("hidden");
+    if (isOpen) {
+      closeMenu();
+    } else {
+      menu?.classList.remove("hidden");
+      iconOpen?.classList.add("hidden");
+      iconClose?.classList.remove("hidden");
+      button?.setAttribute("aria-expanded", "true");
+    }
+  }
+
+  button?.addEventListener("click", toggleMenu);
+
+  document.querySelectorAll(".mobile-nav-link").forEach((link) => {
+    link.addEventListener("click", closeMenu);
+  });
+
   window.addEventListener("scroll", () => {
-    const header = document.getElementById("header");
     if (window.scrollY > 100) {
       header?.classList.add("bg-white/80", "backdrop-blur-sm");
     } else {
