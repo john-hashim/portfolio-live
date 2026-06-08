@@ -5,7 +5,7 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
 
 {
   hasProjects && (
-    <section id="projects" class="px-12 sm:px-20 md:px-28 lg:px-40 py-8 sm:py-12 md:py-16 lg:py-24">
+    <section id="projects" class="px-16 sm:px-24 md:px-40 lg:px-56 py-8 sm:py-12 md:py-16 lg:py-24">
       <div>
         <div class="flex flex-col gap-8 items-start">
           <div>
@@ -66,13 +66,13 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
                           >
                             0{index + 1}
                           </span>
-                          <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-1">
+                          <h3 class="text-base font-bold text-gray-900 mt-1">
                             {project.name}
                           </h3>
                         </div>
 
                         <p
-                          class={`text-base sm:text-lg text-gray-600 leading-relaxed ${project.link ? "pr-12 sm:pr-14 md:pr-16" : ""}`}
+                          class={`text-xs sm:text-sm text-gray-600 leading-relaxed ${project.link ? "pr-12 sm:pr-14 md:pr-16" : ""}`}
                         >
                           {project.description}
                         </p>
